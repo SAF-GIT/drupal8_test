@@ -1,0 +1,77 @@
+<?php
+
+/**
+ * @file
+ * Contains code for adding taxonomy terms.
+ */
+
+use Drupal\taxonomy\Entity\Term;
+use Drupal\user\Entity\User;
+
+/**
+ * Implements hook_install().
+ *
+ * @see system_install()
+ */
+function xvt_drupal8_test_install() {
+  _add_taxonomy();
+  _add_user_config();
+  _add_user();
+}
+
+/**
+ * Adds section taxonomy terms.
+ */
+function _add_taxonomy() {
+  $sections = [
+    'Article' => '1',
+    'Guide' => '2',
+    'Tutorial' => '3',
+  ];
+
+  foreach ($sections as $section => $priority) {
+    Term::create([
+      'name' => $section,
+      'vid' => 'section',
+      'field_priority' => $priority,
+    ])->save();
+  }
+}
+
+/**
+ * Adds user title form and display config.
+ */
+function _add_user_config() {
+  \Drupal::entityTypeManager()
+    ->getStorage('entity_form_display')
+    ->load('user.user.default')
+    ->setComponent('field_title', [
+      'type' => 'options_select',
+      'label' => 'above',
+      'weight' => '1',
+    ])->save();
+
+  \Drupal::entityTypeManager()
+    ->getStorage('entity_view_display')
+    ->load('user.user.default')
+    ->setComponent('field_title', [
+      'type' => 'list_default',
+      'label' => 'above',
+      'weight' => '2',
+    ])->save();
+}
+
+/**
+ * Adds editor user with editor role.
+ */
+function _add_user() {
+  $user = User::create();
+  $user->setPassword('password');
+  $user->enforceIsNew();
+  $user->setEmail('test@email.com');
+  $user->setUsername('editor');
+  $user->set('field_title', 'other');
+  $user->addRole('editor');
+  $user->activate();
+  $user->save();
+}

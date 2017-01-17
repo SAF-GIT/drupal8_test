@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.custom_page.body
+    - field.field.node.custom_page.field_section
+    - node.type.custom_page
+  module:
+    - text
+    - user
+id: node.custom_page.default
+targetEntityType: node
+bundle: custom_page
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+  field_section:
+    weight: 102
+    label: inline
+    settings:
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_label
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

@@ -1,0 +1,13 @@
+name: xvt_drupal8_test
+description: 'Includes config for vocabulary, user changes, content type & view.'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - menu_ui
+  - node
+  - options
+  - path
+  - taxonomy
+  - text
+  - user

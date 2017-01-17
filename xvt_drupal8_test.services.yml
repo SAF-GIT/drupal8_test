@@ -1,0 +1,6 @@
+services:
+  xvt_drupal8_test.page_save_subscriber:
+    class: Drupal\xvt_drupal8_test\EventSubscriber\PageSubscriber
+    arguments: []
+    tags:
+      - { name: event_subscriber }
