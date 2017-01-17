@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains code for adding taxonomy terms.
+ * Contains code for adding taxonomy, user config & a new user.
  */
 
 use Drupal\taxonomy\Entity\Term;
