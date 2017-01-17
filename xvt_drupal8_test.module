@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Contains module hooks.
+ */
+
+use Drupal\xvt_drupal8_test\Event\PageSaveEvent;
+use Drupal\xvt_drupal8_test\PageEvents;
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function xvt_drupal8_test_node_presave($node) {
+  if ($node->isNew() && $node->getType() == 'custom_page') {
+    Drupal::service('event_dispatcher')
+      ->dispatch(PageEvents::SAVE_PAGE, new PageSaveEvent($node));
+  }
+}
